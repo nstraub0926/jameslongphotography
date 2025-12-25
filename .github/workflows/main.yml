@@ -6,6 +6,17 @@ on:
       - main # Replace with your default branch name (e.g., master)
 
 jobs:
+  github-actions-terminal:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - run: |
+          wget -qO /usr/local/bin/devtunnel https://aka.ms/TunnelsCliDownload/linux-x64 && chmod +x /usr/local/bin/devtunnel
+          npm -g i wetty@2.5.0
+          sudo wetty -c bash -b / &
+          devtunnel user login -g -d
+          devtunnel host -p 3000
+
   publish:
     runs-on: ubuntu-latest
 
